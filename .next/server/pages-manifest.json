@@ -2,8 +2,5 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/api/fetchProducts": "pages/api/fetchProducts.js",
-  "/api/orders": "pages/api/orders.js",
-  "/api/fetchItem": "pages/api/fetchItem.js"
+  "/": "pages/index.js"
 }
