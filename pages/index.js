@@ -18,7 +18,7 @@ const App = () => {
   
   const renderNotConnectedContainer = () => (
     <div>
-      <Image src="https://media.giphy.com/media/FWAcpJsFT9mvrv0e7a/giphy.gif" alt="emoji" />
+      <img src="https://media.giphy.com/media/FWAcpJsFT9mvrv0e7a/giphy.gif" alt="emoji" />
 
       <div className="button-container">
         <WalletMultiButton className="cta-button connect-wallet-button" />
@@ -66,7 +66,7 @@ const App = () => {
         </main>
 
         <div className="footer-container">
-          <Image alt="Twitter Logo" className="twitter-logo" src="twitter-logo.svg" />
+          <img alt="Twitter Logo" className="twitter-logo" src="twitter-logo.svg" />
           <a
             className="footer-text"
             href={TWITTER_LINK}
