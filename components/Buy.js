@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { Keypair, Transaction } from "@solana/web3.js";
 import { findReference, FindReferenceError } from "@solana/pay";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-
+import { InfinitySpin } from "react-loader-spinner";
 import IPFSDownload from "./IpfsDownload";
 import { addOrder, hasPurchased, fetchItem } from "../lib/api";
 
