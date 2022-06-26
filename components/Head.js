@@ -16,14 +16,14 @@ export default function HeadComponent() {
       <meta property="og:url" content="https://www.shiftbase.xyz/" />
       <meta property="og:title" content="Create your Solana Online Store" />
       <meta property="og:description" content="React.js + Next.js + Vercel 👉 Solanaでオリジナルのデータショップを作ろう✨" />
-      <meta property="og:image" content="#" />
+      <meta property="og:image" content="/banner-solana-online-store.png" />
 
       {/* Twitter */}
       <meta property="twitter:card" content="summary_large_image" />
       <meta property="twitter:url" content="https://www.shiftbase.xyz/" />
       <meta property="twitter:title" content="Create your Solana Online Store" />
       <meta property="twitter:description" content="React.js + Next.js + Vercel 👉 Solanaでオリジナルのデータショップを作ろう✨" />
-      <meta property="twitter:image" content="#" />
+      <meta property="twitter:image" content="/banner-solana-online-store.png" />
     </Head>
   );
 }
