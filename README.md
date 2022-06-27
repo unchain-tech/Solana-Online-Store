@@ -1,4 +1,4 @@
-[](https://i.imgur.com/R6ehjLp.png)
+![](https://i.imgur.com/R6ehjLp.png)
 
 # 👋 Create an original Online Store on Solana
 
