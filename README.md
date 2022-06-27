@@ -1,3 +1,5 @@
+[](https://i.imgur.com/R6ehjLp.png)
+
 # 👋 Create an original Online Store on Solana
 
 このコースを始めるには、下記のステップを実行してください。
