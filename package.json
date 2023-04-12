@@ -1,5 +1,5 @@
 {
-  "name": "@solana/wallet-adapter-nextjs-starter",
+  "name": "Solana-Online-Store",
   "version": "0.8.2",
   "author": "Solana Maintainers <maintainers@solana.foundation>",
   "repository": "https://github.com/solana-labs/wallet-adapter",
@@ -13,13 +13,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "scripts": {
-    "clean": "shx rm -rf .next",
-    "dev": "next dev",
-    "build": "yarn clean && next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
   "dependencies": {
     "@solana/pay": "^0.2.0",
     "@solana/wallet-adapter-base": "^0.9.4",
@@ -27,18 +20,43 @@
     "@solana/wallet-adapter-react-ui": "^0.9.5",
     "@solana/wallet-adapter-wallets": "^0.16.0",
     "@solana/web3.js": "^1.36.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.1.1",
     "bignumber.js": "^9.0.2",
     "crypto-js": "^4.1.1",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
     "ipfs-core": "^0.14.3",
     "ipfs-http-client": "^56.0.3",
+    "lint-staged": "^13.2.1",
     "next": "^12.1.0",
+    "prettier": "^2.8.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-loader-spinner": "^6.0.0-0"
+    "react-loader-spinner": "^6.0.0-0",
+    "simple-git-hooks": "^2.8.1"
   },
   "devDependencies": {
     "parcel": "^2.3.1",
     "prettier": "^2.5.1",
     "shx": "^0.3.3"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "scripts": {
+    "clean": "shx rm -rf .next",
+    "dev": "next dev",
+    "build": "npm run clean && next build",
+    "start": "next start",
+    "prettier": "prettier --write --ignore-unknown --no-error-on-unmatched-pattern --ignore-path .prettierignore .",
+    "prettier:check": "prettier --check --ignore-unknown --no-error-on-unmatched-pattern --ignore-path .prettierignore .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   }
 }
