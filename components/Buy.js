@@ -1,21 +1,22 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { Keypair, Transaction } from "@solana/web3.js";
-import { findReference, FindReferenceError } from "@solana/pay";
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
-import { InfinitySpin } from "react-loader-spinner";
-import IPFSDownload from "./IpfsDownload";
-import { addOrder, hasPurchased, fetchItem } from '../lib/api';
+import { findReference, FindReferenceError } from '@solana/pay';
+import { useConnection, useWallet } from '@solana/wallet-adapter-react';
+import { Keypair, Transaction } from '@solana/web3.js';
+import { useEffect, useMemo, useState } from 'react';
+import { InfinitySpin } from 'react-loader-spinner';
+
+import { addOrder, fetchItem, hasPurchased } from '../lib/api';
+import IPFSDownload from './IpfsDownload';
 
 const STATUS = {
-  Initial: "Initial",
-  Submitted: "Submitted",
-  Paid: "Paid",
+  Initial: 'Initial',
+  Submitted: 'Submitted',
+  Paid: 'Paid',
 };
 
 export default function Buy({ itemID }) {
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
-  const orderID = useMemo(() => Keypair.generate().publicKey, []);   // 注文を識別するために使用される公開鍵を設定します。
+  const orderID = useMemo(() => Keypair.generate().publicKey, []); // 注文を識別するために使用される公開鍵を設定します。
 
   const [item, setItem] = useState(null); // 購入したアイテムのIPFSハッシュとファイル名を設定します。
   const [status, setStatus] = useState(STATUS.Initial); // トランザクションステータス追跡用のstateを定義します。
@@ -26,31 +27,33 @@ export default function Buy({ itemID }) {
     () => ({
       buyer: publicKey.toString(),
       orderID: orderID.toString(),
-      itemID: itemID,
+      itemID,
     }),
-    [publicKey, orderID, itemID]
+    [publicKey, orderID, itemID],
   );
 
   // サーバーからトランザクションオブジェクトを取得します。
   const processTransaction = async () => {
     setLoading(true);
-    const txResponse = await fetch("../api/createTransaction", {
-      method: "POST",
+    const txResponse = await fetch('../api/createTransaction', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(order),
     });
     const txData = await txResponse.json();
 
     // トランザクションオブジェクトを作成します。
-    const tx = Transaction.from(Buffer.from(txData.transaction, "base64"));
-    console.log("Tx data is", tx);
+    const tx = Transaction.from(Buffer.from(txData.transaction, 'base64'));
+    console.log('Tx data is', tx);
 
     try {
       // ネットワークにトランザクションを送信します。
       const txHash = await sendTransaction(tx, connection);
-      console.log(`Transaction sent: https://solscan.io/tx/${txHash}?cluster=devnet`);
+      console.log(
+        `Transaction sent: https://solscan.io/tx/${txHash}?cluster=devnet`,
+      );
       setStatus(STATUS.Submitted);
     } catch (error) {
       console.error(error);
@@ -79,19 +82,22 @@ export default function Buy({ itemID }) {
       const interval = setInterval(async () => {
         try {
           const result = await findReference(connection, orderID);
-          console.log("Finding tx reference", result.confirmationStatus);
-          if (result.confirmationStatus === "confirmed" || result.confirmationStatus === "finalized") {
+          console.log('Finding tx reference', result.confirmationStatus);
+          if (
+            result.confirmationStatus === 'confirmed' ||
+            result.confirmationStatus === 'finalized'
+          ) {
             clearInterval(interval);
             setStatus(STATUS.Paid);
             addOrder(order);
             setLoading(false);
-            alert("Thank you for your purchase!");
+            alert('Thank you for your purchase!');
           }
         } catch (e) {
           if (e instanceof FindReferenceError) {
             return null;
           }
-          console.error("Unknown error", e);
+          console.error('Unknown error', e);
         } finally {
           setLoading(false);
         }
@@ -129,7 +135,11 @@ export default function Buy({ itemID }) {
       {item ? (
         <IPFSDownload hash={item.hash} filename={item.filename} />
       ) : (
-        <button disabled={loading} className="buy-button" onClick={processTransaction}>
+        <button
+          disabled={loading}
+          className="buy-button"
+          onClick={processTransaction}
+        >
           Buy now →
         </button>
       )}

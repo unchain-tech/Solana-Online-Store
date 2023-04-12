@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { create } from "ipfs-http-client";
-import styles from "../styles/CreateProduct.module.css";
+import { create } from 'ipfs-http-client';
+import { useState } from 'react';
 
-const client = create("https://ipfs.infura.io:5001/api/v0");
+import styles from '../styles/CreateProduct.module.css';
+
+const client = create('https://ipfs.infura.io:5001/api/v0');
 
 const CreateProduct = () => {
-
   const [newProduct, setNewProduct] = useState({
-    name: "",
-    price: "",
-    image_url: "",
-    description: "",
+    name: '',
+    price: '',
+    image_url: '',
+    description: '',
   });
   const [file, setFile] = useState({});
   const [uploading, setUploading] = useState(false);
@@ -23,7 +23,7 @@ const CreateProduct = () => {
       const added = await client.add(files[0]);
       setFile({ filename: files[0].name, hash: added.path });
     } catch (error) {
-      console.log("Error uploading file: ", error);
+      console.log('Error uploading file: ', error);
     }
     setUploading(false);
   }
@@ -32,22 +32,20 @@ const CreateProduct = () => {
     try {
       // 商品データとfile.nameを結合します。
       const product = { ...newProduct, ...file };
-      console.log("Sending product to api", product);
-      const response = await fetch("../api/addProduct", {
-        method: "POST",
+      console.log('Sending product to api', product);
+      const response = await fetch('../api/addProduct', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(product),
       });
       const data = await response.json();
       if (response.status === 200) {
-        alert("Product added!");
+        alert('Product added!');
+      } else {
+        alert('Unable to add product: ', data.error);
       }
-      else {
-        alert("Unable to add product: ", data.error);
-      }
-
     } catch (error) {
       console.log(error);
     }

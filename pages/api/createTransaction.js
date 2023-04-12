@@ -1,13 +1,25 @@
-import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
-import { clusterApiUrl, Connection, PublicKey, Transaction } from "@solana/web3.js";
-import { createTransferCheckedInstruction, getAssociatedTokenAddress, getMint } from "@solana/spl-token";
-import BigNumber from "bignumber.js";
-import products from "./products.json";
+import {
+  createTransferCheckedInstruction,
+  getAssociatedTokenAddress,
+  getMint,
+} from '@solana/spl-token';
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import {
+  clusterApiUrl,
+  Connection,
+  PublicKey,
+  Transaction,
+} from '@solana/web3.js';
+import BigNumber from 'bignumber.js';
+
+import products from './products.json';
 
 // devネット上のUSDCトークンのアドレスを設定します。
-const usdcAddress = new PublicKey("Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr");
+const usdcAddress = new PublicKey(
+  'Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr',
+);
 // このアドレスを販売者のウォレットアドレスに置き換えてください。（ここでは販売者＝あなたです。）
-const sellerAddress = 'Bx4ggEBMn2mQjvbgAB6RWkBcqFGBNZfg62aRqeQ1XduF'
+const sellerAddress = 'Bx4ggEBMn2mQjvbgAB6RWkBcqFGBNZfg62aRqeQ1XduF';
 const sellerPublicKey = new PublicKey(sellerAddress);
 
 const createTransaction = async (req, res) => {
@@ -18,13 +30,13 @@ const createTransaction = async (req, res) => {
     // 必要なものがない場合は中止します。
     if (!buyer) {
       return res.status(400).json({
-        message: "Missing buyer address",
+        message: 'Missing buyer address',
       });
     }
 
     if (!orderID) {
       return res.status(400).json({
-        message: "Missing order ID",
+        message: 'Missing order ID',
       });
     }
 
@@ -33,7 +45,7 @@ const createTransaction = async (req, res) => {
 
     if (!itemPrice) {
       return res.status(404).json({
-        message: "Item not found. please check item ID",
+        message: 'Item not found. please check item ID',
       });
     }
 
@@ -45,11 +57,17 @@ const createTransaction = async (req, res) => {
     const endpoint = clusterApiUrl(network);
     const connection = new Connection(endpoint);
 
-    const buyerUsdcAddress = await getAssociatedTokenAddress(usdcAddress, buyerPublicKey);
-    const shopUsdcAddress = await getAssociatedTokenAddress(usdcAddress, sellerPublicKey);
+    const buyerUsdcAddress = await getAssociatedTokenAddress(
+      usdcAddress,
+      buyerPublicKey,
+    );
+    const shopUsdcAddress = await getAssociatedTokenAddress(
+      usdcAddress,
+      sellerPublicKey,
+    );
 
     // 各ブロックを識別するblockhashはblockのIDのようなものです。
-    const { blockhash } = await connection.getLatestBlockhash("finalized");
+    const { blockhash } = await connection.getLatestBlockhash('finalized');
 
     // 転送するトークンのミントアドレスを取得しています。
     const usdcMint = await getMint(connection, usdcAddress);
@@ -63,14 +81,12 @@ const createTransaction = async (req, res) => {
     // SOLとは異なるタイプの命令を作成しています。
     const transferInstruction = createTransferCheckedInstruction(
       buyerUsdcAddress,
-      usdcAddress,     // 転送するトークンのアドレスです。
+      usdcAddress, // 転送するトークンのアドレスです。
       shopUsdcAddress,
       buyerPublicKey,
       bigAmount.toNumber() * 10 ** (await usdcMint).decimals,
-      usdcMint.decimals // トークンには任意の数の小数を含めることができます。
+      usdcMint.decimals, // トークンには任意の数の小数を含めることができます。
     );
-
-
 
     // トランザクションにさらに命令を追加します。
     transferInstruction.keys.push({
@@ -86,7 +102,7 @@ const createTransaction = async (req, res) => {
     const serializedTransaction = tx.serialize({
       requireAllSignatures: false,
     });
-    const base64 = serializedTransaction.toString("base64");
+    const base64 = serializedTransaction.toString('base64');
 
     res.status(200).json({
       transaction: base64,
@@ -94,13 +110,12 @@ const createTransaction = async (req, res) => {
   } catch (error) {
     console.error(error);
 
-    res.status(500).json({ error: "error creating tx" });
-    return;
+    res.status(500).json({ error: 'error creating tx' });
   }
-}
+};
 
 export default function handler(req, res) {
-  if (req.method === "POST") {
+  if (req.method === 'POST') {
     createTransaction(req, res);
   } else {
     res.status(405).end();

@@ -1,19 +1,22 @@
-import React, { useMemo } from "react";
-import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
-import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react";
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+import {
+  ConnectionProvider,
+  WalletProvider,
+} from '@solana/wallet-adapter-react';
+import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
+import '@solana/wallet-adapter-react-ui/styles.css';
 import {
   GlowWalletAdapter,
   PhantomWalletAdapter,
   SlopeWalletAdapter,
   SolflareWalletAdapter,
   TorusWalletAdapter,
-} from "@solana/wallet-adapter-wallets";
-import { clusterApiUrl } from "@solana/web3.js";
+} from '@solana/wallet-adapter-wallets';
+import { clusterApiUrl } from '@solana/web3.js';
+import React, { useMemo } from 'react';
 
-import "@solana/wallet-adapter-react-ui/styles.css";
-import "../styles/globals.css";
-import "../styles/App.css";
+import '../styles/App.css';
+import '../styles/globals.css';
 
 const App = ({ Component, pageProps }) => {
   // networkはdevnet、testnet、またはmainnet-betaに設定できます。
@@ -31,7 +34,7 @@ const App = ({ Component, pageProps }) => {
       new SolflareWalletAdapter({ network }),
       new TorusWalletAdapter(),
     ],
-    [network]
+    [network],
   );
 
   return (
