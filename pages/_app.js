@@ -13,7 +13,7 @@ import {
   TorusWalletAdapter,
 } from '@solana/wallet-adapter-wallets';
 import { clusterApiUrl } from '@solana/web3.js';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import '../styles/App.css';
 import '../styles/globals.css';
