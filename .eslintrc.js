@@ -10,6 +10,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    camelcase: ['warn'],
     'no-lone-blocks': ['off'],
     'no-unused-vars': ['warn'],
     'react/prop-types': ['off'],
