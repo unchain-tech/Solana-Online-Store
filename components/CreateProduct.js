@@ -9,7 +9,7 @@ const CreateProduct = () => {
   const [newProduct, setNewProduct] = useState({
     name: '',
     price: '',
-    image_url: '',
+    imageUrl: '',
     description: '',
   });
   const [file, setFile] = useState({});
@@ -40,10 +40,10 @@ const CreateProduct = () => {
         },
         body: JSON.stringify(product),
       });
-      const data = await response.json();
       if (response.status === 200) {
         alert('Product added!');
       } else {
+        const data = await response.json();
         alert('Unable to add product: ', data.error);
       }
     } catch (error) {
@@ -93,7 +93,7 @@ const CreateProduct = () => {
                 type="url"
                 placeholder="Image URL ex: https://media.giphy.com/media/FWAcpJsFT9mvrv0e7a/giphy.gif"
                 onChange={(e) => {
-                  setNewProduct({ ...newProduct, image_url: e.target.value });
+                  setNewProduct({ ...newProduct, imageUrl: e.target.value });
                 }}
               />
             </div>

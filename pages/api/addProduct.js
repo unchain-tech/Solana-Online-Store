@@ -6,7 +6,7 @@ export default function handler(req, res) {
   if (req.method === 'POST') {
     try {
       console.log('body is ', req.body);
-      const { name, price, image_url, description, filename, hash } = req.body;
+      const { name, price, imageUrl, description, filename, hash } = req.body;
 
       // 前回のプロダクトIDを元に新しいプロダクトIDを作成します。
       const maxID = products.reduce(
@@ -17,7 +17,7 @@ export default function handler(req, res) {
         id: maxID + 1,
         name,
         price,
-        image_url,
+        imageUrl,
         description,
         filename,
         hash,
