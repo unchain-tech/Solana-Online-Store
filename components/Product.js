@@ -2,12 +2,12 @@ import styles from '../styles/Product.module.css';
 import Buy from './Buy';
 
 export default function Product({ product }) {
-  const { id, name, price, description, image_url } = product;
+  const { id, name, price, description, imageUrl } = product;
 
   return (
     <div className={styles.product_container}>
       <div>
-        <img className={styles.product_image} src={image_url} alt={name} />
+        <img className={styles.product_image} src={imageUrl} alt={name} />
       </div>
 
       <div className={styles.product_details}>
