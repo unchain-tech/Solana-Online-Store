@@ -55,7 +55,6 @@ describe('CreateProduct', () => {
     await userEvent.click(btnElement);
 
     /** 確認 */
-    // await expect(fetch).toHaveBeenCalledTimes(1);
     expect(fetch).toBeCalledWith('../api/addProduct', {
       method: 'POST',
       headers: {

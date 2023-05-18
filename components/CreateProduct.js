@@ -23,7 +23,7 @@ const CreateProduct = () => {
       const added = await client.add(files[0]);
       setFile({ filename: files[0].name, hash: added.path });
     } catch (error) {
-      console.log('Error uploading file: ', error);
+      console.error('Error uploading file: ', error);
     }
     setUploading(false);
   }
@@ -32,7 +32,6 @@ const CreateProduct = () => {
     try {
       // 商品データとfile.nameを結合します。
       const product = { ...newProduct, ...file };
-      console.log('Sending product to api', product);
       const response = await fetch('../api/addProduct', {
         method: 'POST',
         headers: {
@@ -47,7 +46,7 @@ const CreateProduct = () => {
         alert('Unable to add product: ', data.error);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

@@ -46,7 +46,6 @@ export default function Buy({ itemID }) {
 
     // トランザクションオブジェクトを作成します。
     const tx = Transaction.from(Buffer.from(txData.transaction, 'base64'));
-    console.log('Tx data is', tx);
 
     try {
       // ネットワークにトランザクションを送信します。

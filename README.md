@@ -13,13 +13,23 @@ git clone git@github.com:unchain-tech/Solana-Online-Store.git
 ### 2. パッケージのインストール
 
 ```bash
-npm install
+yarn install
 ```
 
-### 3. 開発サーバーの起動
+### 3. .env ファイルの作成
 
 ```bash
-npm run dev
+cp .env.example .env
+```
+
+Phantom Wallet のネットワークを`devnet`に設定します。
+
+作成した`.env`ファイルに、Phantom Wallet のアドレスを記入してください。
+
+### 4. 開発サーバーの起動
+
+```bash
+yarn dev
 ```
 
 ターミナル上に表示された URL にアクセスしましょう。
@@ -29,6 +39,6 @@ npm run dev
 ### Git Hooks
 
 ```
-npm install
-npx simple-git-hooks
+yarn install
+yarn simple-git-hooks
 ```
