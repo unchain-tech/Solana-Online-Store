@@ -18,7 +18,8 @@
     "dev": "next dev",
     "build": "yarn clean && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest"
   },
   "dependencies": {
     "@solana/pay": "^0.2.0",
@@ -37,6 +38,11 @@
     "react-loader-spinner": "^6.0.0-0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.4.3",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
     "parcel": "^2.3.1",
     "prettier": "^2.5.1",
     "shx": "^0.3.3"
